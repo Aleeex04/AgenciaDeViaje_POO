@@ -1,0 +1,3 @@
+5,Madrid,España,ElbaSunset,120
+6,Alemania,Berlin,Hotelkartofen,220
+7,Italia,Roma,HotelRistorante,100
