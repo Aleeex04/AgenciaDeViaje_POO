@@ -5,7 +5,7 @@ Este proyecto consiste en una aplicación de Agencia de Viajes desarrollada en J
 ## Descripción
 La Agencia de Viajes ofrece diversas funcionalidades para la gestión de reservas de vuelos y hoteles, así como también la administración de destinos. Permite a los usuarios agregar, actualizar y eliminar destinos, así como realizar reservas de vuelos y hoteles para los clientes.
 
-#Base de Datos
+# Base de Datos
 El proyecto utiliza una base de datos Mariadb, a continuacion las tablas:
 
 - Destino
