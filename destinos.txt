@@ -1,3 +1,1 @@
-5,Madrid,España,ElbaSunset120.0
-6,Alemania,Berlin,Hotelkartofen220.0
-7,Italia,Roma,HotelRistorante100.0
+5,Madrid,España,La capital de España 6,Alemania,Berlin,La capital de Alemania 7,Italia,Roma,La capital de Italia 

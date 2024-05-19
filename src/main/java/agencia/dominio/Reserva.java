@@ -13,7 +13,7 @@ public class Reserva implements SolicitarInformacion {
 
     // Constructor, getters y setters
 
-    public Reserva(int idReserva, Destino destino, Cliente cliente,Hotel hotel, Vuelo vuelo, Date fechaReserva, double precioReserva) {
+    public Reserva(int idReserva,Cliente cliente, Destino destino,Hotel hotel, Vuelo vuelo, Date fechaReserva, double precioReserva) {
         this.idReserva = idReserva;
         this.destino = destino;
         this.cliente = cliente;

@@ -44,14 +44,14 @@ public class Agencia {
     public void mostrarDestinos(){
         System.out.println("---Mostrando destinos disponibles---");
         for(Destino destino : destinosreservados){
-            System.out.println("Ciudad: " + destino.getCiudad() + " Pais: " + destino.getPais());
+            System.out.println("Ciudad: " + destino.getCiudad() + " Pais: " + destino.getPais()+ "Descripcion: " + destino.getDescripcion());
         }
     }
     // Método para guardar todo el inventario en un archivo
     public void guardarInventarioEnArchivo(String nombreArchivo){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (Destino destino : destinosreservados) {
-                writer.write(destino.getIdDestino() + "," + destino.getCiudad() + "," + destino.getPais()+ "\n");
+                writer.write(destino.getIdDestino() + "," + destino.getCiudad() + "," + destino.getPais()+ "," + destino.getDescripcion()+ " ");
             }
             System.out.println("Destino guardado correctamente en el archivo: " + nombreArchivo);
         } catch (IOException e) {
@@ -71,8 +71,9 @@ public class Agencia {
                 int idDestino = Integer.parseInt(partes[0].trim()); // Convertir la cadena del id a entero
                 String ciudad = partes[1].trim(); // recoge la ciudad
                 String pais = partes[2].trim(); // recoge el pais
+                String descripcion = partes[3].trim();
                 // Crear un nuevo objeto Vehiculo y agregarlo al inventario
-                Destino destino = new Destino(idDestino, ciudad, pais);
+                Destino destino = new Destino(idDestino, ciudad, pais,descripcion);
                 destinosreservados.add(destino);
             }
             System.out.println("Reservas han sido cargadas correctamente desde el archivo: " + nombreArchivo);

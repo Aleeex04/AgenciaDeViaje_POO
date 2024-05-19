@@ -4,13 +4,15 @@ public class Destino implements SolicitarInformacion {
     private int idDestino;
     private String ciudad;
     private String pais;
+    private String descripcion;
 
     // Constructor, getters y setters
 
-    public Destino(int idDestino, String ciudad, String pais) {
+    public Destino(int idDestino, String ciudad, String pais, String descripcion) {
         this.idDestino = idDestino;
         this.ciudad = ciudad;
         this.pais = pais;
+        this.descripcion= descripcion;
     }
 
     public int getIdDestino() {
@@ -37,6 +39,13 @@ public class Destino implements SolicitarInformacion {
         this.pais = pais;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.pais = descripcion;
+    }
 
     @Override
     public String toString() {
@@ -44,6 +53,7 @@ public class Destino implements SolicitarInformacion {
                 "idDestino=" + idDestino +
                 ", ciudad='" + ciudad + '\'' +
                 ", pais='" + pais + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 

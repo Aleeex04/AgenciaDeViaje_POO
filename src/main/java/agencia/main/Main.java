@@ -1,9 +1,8 @@
 package agencia.main;
-import agencia.dominio.Agencia;
-import agencia.dominio.Cliente;
-import agencia.dominio.Destino;
-import agencia.dominio.GestorBD;
+import agencia.dominio.*;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,7 +69,7 @@ public class Main {
                     gestorBD.agregarDestino(nuevoDestino);
                     break;
                 case 2:
-                    System.out.println("Ingresa el ID del vehículo:");
+                    System.out.println("Ingresa el ID del destino:");
                     int idReserva = scanner.nextInt();
                     Destino destinoBuscado = gestorBD.obtenerDestinoPorId(idReserva);
                     if (destinoBuscado != null) {
@@ -87,7 +86,7 @@ public class Main {
                     gestorBD.actualizarDestino(idActualizar, destinoActualizar);
                     break;
                 case 4:
-                    System.out.println("Ingresa el ID del vehículo a eliminar:");
+                    System.out.println("Ingresa el ID del destino que desea eliminar:");
                     int idEliminar = scanner.nextInt();
                     gestorBD.eliminarDestinoporId(idEliminar);
                     break;
@@ -95,18 +94,46 @@ public class Main {
                     nuevoCliente = crearCliente(scanner);
                     gestorBD.agregarCliente(nuevoCliente);
                     break;
-
                 case 6:
                     System.out.println("Ingresa el ID del destino a reservar:");
                     int idDestinoReservado = scanner.nextInt();
-                    Destino ReservaDestino = gestorBD.obtenerDestinoPorId(idDestinoReservado);
-                    if (ReservaDestino != null && nuevoCliente != null) {
-                        gestorBD.registrarReserva(ReservaDestino, nuevoCliente);
-                        System.out.println("Destino registrada correctamente.");
+                    scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                    Destino reservaDestino = gestorBD.obtenerDestinoPorId(idDestinoReservado);
+
+                    if (reservaDestino != null && nuevoCliente != null) {
+                        System.out.println("Ingresa el nombre del hotel:");
+                        String nombreHotelReservado = scanner.nextLine();
+
+                        // Obtener el hotel por su nombre
+                        Hotel hotelReservado = gestorBD.obtenerHotelPorNombre(nombreHotelReservado);
+
+                        // Obtener el vuelo
+                        System.out.println("Ingresa el ID del vuelo:");
+                        int idVuelo = scanner.nextInt();
+                        scanner.nextLine(); // Consumir la nueva línea pendiente
+                        Vuelo vueloReservado = gestorBD.obtenerVueloPorId(idVuelo);
+
+                        if (hotelReservado != null && vueloReservado != null) {
+                            // Crear una nueva instancia de Reserva
+                            int idReserva1 = gestorBD.generarIdReserva();
+                            Date fechaReserva = new Date(System.currentTimeMillis()); // Fecha actual
+                            double precioReserva = gestorBD.calcularPrecioReserva(hotelReservado, vueloReservado, reservaDestino);
+
+                            Reserva nuevaReserva = new Reserva(idReserva1, nuevoCliente, reservaDestino, hotelReservado, vueloReservado, fechaReserva, precioReserva);
+
+                            // Registrar la reserva en la base de datos
+                            gestorBD.registrarReserva(nuevaReserva, hotelReservado, vueloReservado, reservaDestino, nuevoCliente);
+                            System.out.println("Reserva registrada correctamente.");
+                        } else {
+                            System.out.println("No se pudo registrar la reserva. Verifique el nombre del hotel y el ID del vuelo proporcionados.");
+                        }
                     } else {
                         System.out.println("No se pudo registrar el destino. Verifique el ID del destino proporcionado.");
                     }
                     break;
+
+
                 case 0:
                     System.out.println("Volviendo al menú principal...");
                     break;
@@ -119,6 +146,8 @@ public class Main {
 
     public static void menumetodosAgencia(Agencia agencia, String nombreArchivo, String nombreArchivo2) {
         Scanner scanner = new Scanner(System.in);
+        GestorBD gestorBD = new GestorBD();
+
         int opcion;
 
         do {
@@ -126,8 +155,8 @@ public class Main {
             System.out.println("1. Agregar destino");
             System.out.println("2. Eliminar destino");
             System.out.println("3. Buscar destino por ciudad");
-            System.out.println("4. Calcular precio del destino");
-            System.out.println("5. Mostrar destinos");
+            System.out.println("4. Calcular precio del destino (hotel+vuelo)");
+            System.out.println("5. Mostrar destinos disponibles");
             System.out.println("6. Guardar destinos en archivo");
             System.out.println("7. Cargar destinos desde archivo");
             System.out.println("0. Volver al menú principal");
@@ -136,6 +165,7 @@ public class Main {
 
             switch (opcion) {
                 case 1:
+                    System.out.println("Ingresa el ID del destino que deseas agregar:");
                     Destino nuevoDestino = crearDestino(scanner);
                     try {
                         agencia.agregarDestino(nuevoDestino);
@@ -145,7 +175,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("Ingresa el ID del vehículo a eliminar:");
+                    System.out.println("Ingresa el ID del destino que deseas eliminar:");
                     int idEliminar = scanner.nextInt();
                     Destino destinoEliminar = null;
                     for (Destino destino : agencia.getDestinosreservados()) {
@@ -179,8 +209,26 @@ public class Main {
                     }
                     break;
                 case 4:
-                    double precio= agencia.calcularPrecioDestino();
-                    System.out.println("El precio del destino en la agencia es de: " + precio);
+                    System.out.println("Ingrese el nombre del hotel:");
+                    String nombreHotel = scanner.nextLine();
+                    Hotel hotel = gestorBD.obtenerHotelPorNombre(nombreHotel);
+
+                    if (hotel == null) {
+                        System.out.println("No se encontró el hotel.");
+                        return;
+                    }
+
+                    System.out.println("Ingrese el ID del vuelo:");
+                    int idVuelo = scanner.nextInt();
+                    Vuelo vuelo = gestorBD.obtenerVueloPorId(idVuelo);
+
+                    if (vuelo == null) {
+                        System.out.println("No se encontró el vuelo.");
+                        return;
+                    }
+
+                    double precioReserva = gestorBD.calcularPrecioReserva(hotel, vuelo, vuelo.getDestino());
+                    System.out.println("El precio total de la reserva es de €" + String.format("%.2f", precioReserva)+"para el destino "+vuelo.getDestino());
                     break;
                 case 5:
                     agencia.mostrarDestinos();
@@ -249,15 +297,12 @@ public class Main {
         String ciudad = scanner.nextLine();
         System.out.print("Pais: ");
         String pais = scanner.nextLine();
-        System.out.print("Hotel: ");
-        String hotel = scanner.nextLine();
-        System.out.print("Vuelo: ");
-        String vuelo = scanner.nextLine();
-        System.out.print("Precio: ");
-        double precio = scanner.nextDouble();
+        System.out.print("Descripcion: ");
+        String descripcion = scanner.nextLine();
+
         scanner.nextLine();
 
-        return new Destino(id, ciudad, pais, hotel, vuelo, precio);
+        return new Destino(id, ciudad, pais, descripcion);
     }
 
     // Método para crear un cliente ingresando datos por consola

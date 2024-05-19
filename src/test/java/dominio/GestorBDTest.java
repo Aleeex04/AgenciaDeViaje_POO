@@ -11,7 +11,7 @@ public class GestorBDTest {
     void agregarVehiculo() {
 
         GestorBD gestorBD = new GestorBD();
-        Destino destino = new Destino(15, "Paris", "Francia", "ElbaSunset", 250);
+        Destino destino = new Destino(15, "Paris", "Francia", "La capital de Francia");
 
 
         gestorBD.agregarDestino(destino);
@@ -22,15 +22,15 @@ public class GestorBDTest {
         assertEquals(destinoAgregado.getIdDestino(), destinoAgregado.getIdDestino());
         assertEquals(destinoAgregado.getCiudad(), destinoAgregado.getCiudad());
         assertEquals(destinoAgregado.getPais(), destinoAgregado.getPais());
-        assertEquals(destinoAgregado.getHotel(), destinoAgregado.getHotel());
-        assertEquals(destinoAgregado.getPrecio(), destinoAgregado.getPrecio());
+        assertEquals(destinoAgregado.getDescripcion(), destinoAgregado.getDescripcion());
+
     }
 
     @Test
     void eliminarDestinoporId() {
 
         GestorBD gestorBD = new GestorBD();
-        Destino destino = new Destino(15, "Paris", "Francia", "ElbaSunset", 250);
+        Destino destino = new Destino(15, "Paris", "Francia", "La capital de Francia");
         gestorBD.agregarDestino(destino);
 
 
