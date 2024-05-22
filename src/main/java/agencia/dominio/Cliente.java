@@ -17,7 +17,6 @@ public class Cliente extends Persona {
         if (!harealizadoReserva()) {
             System.out.println("Realizando reserva a: " + destino);
 
-            // Obtener hotel y vuelo, asumiendo métodos similares a obtenerDestinoPorId
             System.out.println("Ingresa el nombre del hotel:");
             Scanner scanner = new Scanner(System.in);
             String nombreHotel = scanner.nextLine();

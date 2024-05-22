@@ -50,7 +50,7 @@ public class Main {
 
     public static void menuCRUDVehiculos(GestorBD gestorBD, Scanner scanner) {
         int opcion;
-        Cliente nuevoCliente = null; // para que el case 6 no de error.
+        Cliente nuevoCliente = null;
         do {
             System.out.println("\n***** CRUD DE VIAJES *****");
             System.out.println("1. Agregar destino");

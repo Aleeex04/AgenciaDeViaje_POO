@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agencia {
+public class  Agencia {
     private  List<Destino> destinosreservados;
 
 
@@ -72,7 +72,7 @@ public class Agencia {
                 String ciudad = partes[1].trim(); // recoge la ciudad
                 String pais = partes[2].trim(); // recoge el pais
                 String descripcion = partes[3].trim();
-                // Crear un nuevo objeto Vehiculo y agregarlo al inventario
+                // Crear un nuevo objeto destino y agregarlo a los destinos
                 Destino destino = new Destino(idDestino, ciudad, pais,descripcion);
                 destinosreservados.add(destino);
             }

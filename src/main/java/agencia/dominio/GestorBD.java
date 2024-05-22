@@ -67,7 +67,7 @@ public class GestorBD {
                 int idVuelo = rs.getInt("idVuelo");
                 int numeroAsiento = rs.getInt("numeroAsiento");
                 int idDestino = rs.getInt("idDestino");
-                int precio = rs.getInt("precio");// Asumiendo que la tabla Vuelo tiene una columna idDestino
+                int precio = rs.getInt("precio");
 
                 // Obtener el destino correspondiente
                 Destino destino = obtenerDestinoPorId(idDestino);
@@ -154,7 +154,7 @@ public class GestorBD {
         }
     }
 
-    // METODO PARA REGISTRAR UNA VENTA
+    // METODO PARA REGISTRAR UNA RESERVA
 
     public void registrarReserva(Reserva reserva, Hotel hotel, Vuelo vuelo, Destino destino, Cliente cliente) {
         String query = "INSERT INTO Reserva (idReserva, idCliente, idDestino, hotel, vuelo, fechaReserva, precioReserva) VALUES (?, ?, ?, ?, ?, ?, ?)";
