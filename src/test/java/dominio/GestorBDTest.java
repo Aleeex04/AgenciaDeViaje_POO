@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GestorBDTest {
 
     @Test
-    void agregarVehiculo() {
+    void agregarDestino() {
 
         GestorBD gestorBD = new GestorBD();
         Destino destino = new Destino(15, "Paris", "Francia", "La capital de Francia");
